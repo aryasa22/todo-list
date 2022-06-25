@@ -10,6 +10,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [filteredTodos, setFilteredTodos] = useState([]);
+  const [todoId, setTodoId] = useState();
 
   const [status, setStatus] = useState("all");
 
@@ -43,7 +44,12 @@ function App() {
           {isOpen || isUpdate ? (
             ""
           ) : (
-            <select onChange={statusHandler} name="filter" id="filter">
+            <select
+              onChange={statusHandler}
+              name="filter"
+              id="filter"
+              value={status}
+            >
               <option value="all">All Tasks</option>
               <option value="completed">Completed</option>
               <option value="uncompleted">Uncompleted</option>
@@ -64,6 +70,7 @@ function App() {
             setTodos={setTodos}
             isUpdate={isUpdate}
             setIsUpdate={setIsUpdate}
+            todoId={todoId}
           />
         ) : (
           <TodoList
@@ -74,6 +81,8 @@ function App() {
             setInputTodoTime={setInputTodoTime}
             setIsUpdate={setIsUpdate}
             filteredTodos={filteredTodos}
+            todoId={todoId}
+            setTodoId={setTodoId}
           />
         )}
       </div>

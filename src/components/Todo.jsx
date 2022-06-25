@@ -10,6 +10,8 @@ export default function Todo({
   setInputTodoTime,
   setIsOpen,
   setIsUpdate,
+  todoId,
+  setTodoId,
 }) {
   const deleteHandler = () => {
     setTodos(todos.filter((el) => el.id !== todo.id));
@@ -29,10 +31,10 @@ export default function Todo({
     );
   };
 
-  const updateHandler = () => {
+  const handleUpdate = () => {
     setInputTodoTitle(todo.title);
     setInputTodoTime(todo.time);
-    deleteHandler();
+    setTodoId(todo.id);
     setIsOpen(true);
     setIsUpdate(true);
   };
@@ -53,7 +55,7 @@ export default function Todo({
         <button onClick={completeHandler} className="actionBtn completeBtn">
           <FaCheck />
         </button>
-        <button onClick={updateHandler} className="actionBtn updateBtn">
+        <button onClick={handleUpdate} className="actionBtn updateBtn">
           <FaPen />
         </button>
         <button onClick={deleteHandler} className="actionBtn deleteBtn">

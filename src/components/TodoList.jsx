@@ -10,6 +10,8 @@ export default function TodoList({
   setInputTodoTime,
   setIsUpdate,
   filteredTodos,
+  todoId,
+  setTodoId,
 }) {
   const appearAdd = () => {
     setIsOpen(true);
@@ -28,6 +30,8 @@ export default function TodoList({
             setInputTodoTime={setInputTodoTime}
             setIsOpen={setIsOpen}
             setIsUpdate={setIsUpdate}
+            todoId={todoId}
+            setTodoId={setTodoId}
           />
         );
       })}

@@ -11,9 +11,11 @@ export default function InputTodo({
   setTodos,
   isUpdate,
   setIsUpdate,
+  todoId,
 }) {
-  const hideAdd = () => {
+  const hideForm = () => {
     setIsOpen(false);
+    setIsUpdate(false);
     setInputTodoTitle("");
     setInputTodoTime("");
   };
@@ -50,14 +52,32 @@ export default function InputTodo({
         id: Math.random() * 1000,
       },
     ]);
-    hideAdd();
-    setIsUpdate(false);
+    hideForm();
+  };
+
+  const updateHandler = () => {
+    setTodos(
+      todos.map((item) => {
+        if (item.id === todoId) {
+          return {
+            ...item,
+            title: inputTodoTitle,
+            time: inputTodoTime,
+            completed: false,
+          };
+        }
+        return item;
+      })
+    );
+    hideForm();
   };
 
   return (
     <motion.div animate={{ y: [50, 0] }} transition={{ duration: 0.3 }}>
       <div className="inputTodo">
-        <span className="cardTitle">Add a new task</span>
+        <span className="cardTitle">
+          {isUpdate ? "Update task" : "Add a new task"}
+        </span>
         <div className="inputContainer">
           <div className="input">
             <input
@@ -86,14 +106,13 @@ export default function InputTodo({
             <span className="errMsg">{errorMessageTime}</span>
           </div>
           <div className="buttonContainer">
-            {isUpdate ? (
-              ""
-            ) : (
-              <button onClick={hideAdd} className="cancelBtn">
-                Cancel
-              </button>
-            )}
-            <button onClick={saveHandler} className="saveBtn">
+            <button onClick={hideForm} className="cancelBtn">
+              Cancel
+            </button>
+            <button
+              onClick={isUpdate ? updateHandler : saveHandler}
+              className="saveBtn"
+            >
               {isUpdate ? "Update" : "Save"}
             </button>
           </div>
